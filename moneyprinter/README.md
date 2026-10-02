@@ -12,10 +12,22 @@ Generates short videos automatically: script → voiceover → subtitles → sto
 **Fully automatic (needs API keys):** in `~/MoneyPrinterTurbo/config.toml` set
 `llm_provider` + its key (e.g. `llm_provider = "openai"`, `openai_api_key = "..."`) and
 `pexels_api_keys = ["..."]` (free at https://www.pexels.com/api/). Then:
+
+Tested setup (Gemini + Pixabay, both have free tiers):
+```toml
+video_source = "pixabay"
+pixabay_api_keys = ["<pixabay key>"]      # https://pixabay.com/api/docs/
+llm_provider = "gemini"
+gemini_api_key = "<gemini key>"            # https://aistudio.google.com/app/apikey
+gemini_model_name = "gemini-3.5-flash"     # gemini-2.5-flash is closed to new keys
+```
+Gemini sometimes returns "503 high demand"; the tool retries, or switch to another
+flash model. Never commit `config.toml`; it holds your keys (it is gitignored upstream).
+
 ```bash
 cd ~/MoneyPrinterTurbo
 .venv/bin/python cli.py --video-subject "5 tips to save money" --video-language en-US \
-  --voice-name en-US-AriaNeural-Female
+  --voice-name en-US-AriaNeural-Female --video-source pixabay
 ```
 
 **No keys:** write your own script and use your own clips/images (Edge TTS voice is free):
