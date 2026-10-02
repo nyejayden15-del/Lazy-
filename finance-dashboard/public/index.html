@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Money Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+</head>
+<body>
+  <header class="top">
+    <div>
+      <h1>Money Dashboard</h1>
+      <p class="muted" id="updated">Loading…</p>
+    </div>
+    <div class="actions">
+      <span id="mode" class="badge"></span>
+      <button id="refresh" class="btn">Refresh</button>
+      <button id="connect" class="btn primary">+ Connect account</button>
+    </div>
+  </header>
+
+  <div id="banner" class="banner" hidden></div>
+
+  <main>
+    <section class="kpis" id="kpis" aria-label="Summary"></section>
+
+    <section class="card span-2" aria-labelledby="plan-h">
+      <div class="card-head">
+        <h2 id="plan-h">Your financial plan</h2>
+        <p class="muted" id="plan-sub"></p>
+      </div>
+      <ol class="steps" id="steps"></ol>
+      <div id="payoff-wrap" hidden>
+        <h3>High-interest debt payoff</h3>
+        <div class="legend" id="payoff-legend"></div>
+        <div class="chart" id="payoff-chart"></div>
+        <details class="table-view"><summary>Show as table</summary><div id="payoff-table"></div></details>
+      </div>
+      <div id="budget"></div>
+    </section>
+
+    <section class="card" aria-labelledby="up-h">
+      <h2 id="up-h">Due in the next 30 days</h2>
+      <div id="upcoming"></div>
+    </section>
+
+    <section class="card" aria-labelledby="debt-h">
+      <h2 id="debt-h">Debt</h2>
+      <div id="debts"></div>
+    </section>
+
+    <section class="card" aria-labelledby="bills-h">
+      <h2 id="bills-h">Recurring bills</h2>
+      <div id="bills"></div>
+    </section>
+
+    <section class="card" aria-labelledby="subs-h">
+      <h2 id="subs-h">Subscriptions</h2>
+      <div id="subs"></div>
+    </section>
+
+    <section class="card" aria-labelledby="inv-h">
+      <h2 id="inv-h">Investments</h2>
+      <div id="holdings"></div>
+    </section>
+
+    <section class="card" aria-labelledby="acct-h">
+      <h2 id="acct-h">Accounts</h2>
+      <div id="accounts"></div>
+    </section>
+
+    <section class="card" aria-labelledby="conn-h">
+      <h2 id="conn-h">Connections</h2>
+      <div id="connections"></div>
+      <h3>Import a CSV (Cash App or any bank)</h3>
+      <p class="muted small">Cash App: Activity → Statements → Export CSV. Use this for any account that won't connect directly.</p>
+      <form id="csv-form" class="row-form">
+        <input id="csv-label" type="text" value="Cash App" aria-label="Account name" maxlength="60">
+        <input id="csv-file" type="file" accept=".csv,text/csv" aria-label="CSV file" required>
+        <button class="btn" type="submit">Import</button>
+      </form>
+    </section>
+
+    <section class="card" aria-labelledby="set-h">
+      <h2 id="set-h">Plan settings</h2>
+      <form id="settings-form" class="settings">
+        <label>Monthly take-home pay
+          <input id="set-income" type="number" min="0" step="1" placeholder="auto-detected">
+        </label>
+        <label>Extra toward debt each month
+          <input id="set-extra" type="number" min="0" step="1" placeholder="auto">
+        </label>
+        <label>Payoff method
+          <select id="set-strategy">
+            <option value="avalanche">Avalanche: highest APR first (least interest)</option>
+            <option value="snowball">Snowball: smallest balance first (quick wins)</option>
+          </select>
+        </label>
+        <button class="btn primary" type="submit">Save</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="muted small">
+    Runs only on your computer. Numbers are estimates from your account data, not professional financial advice.
+  </footer>
+
+  <div id="tooltip" class="tooltip" role="status" hidden></div>
+  <script src="app.js" type="module"></script>
+</body>
+</html>

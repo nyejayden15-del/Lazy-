@@ -1,0 +1,19 @@
+{
+  "name": "finance-dashboard",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Personal finance dashboard: debts, bills, subscriptions, investments and a generated financial plan, synced via Plaid.",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "demo": "DEMO=1 node server.js",
+    "test": "node --test test/*.test.js"
+  },
+  "engines": { "node": ">=18" },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "plaid": "^29.0.0"
+  }
+}
