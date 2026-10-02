@@ -15,7 +15,7 @@ const PORT = Number(process.env.PORT) || 3000;
 const HOST = '127.0.0.1';
 const PLAID_ENV = process.env.PLAID_ENV || 'sandbox';
 const plaidConfigured = Boolean(process.env.PLAID_CLIENT_ID && process.env.PLAID_SECRET);
-const DEMO = process.env.DEMO === '1' || !plaidConfigured;
+const DEMO = process.argv.includes('--demo') || process.env.DEMO === '1' || !plaidConfigured;
 const CACHE_MS = 15 * 60 * 1000;
 
 if (!DEMO && !process.env.TOKEN_ENCRYPTION_KEY) {
